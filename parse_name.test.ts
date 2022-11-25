@@ -11,7 +11,7 @@ Deno.test("parseName, single", () => {
 });
 
 Deno.test("parseName, array", () => {
-  assertEquals(parseName("[]"), ["", null]); // warning
+  assertEquals(parseName("[]"), ["", null]);
 
   assertEquals(parseName("hello[1]"), ["hello", 1]);
 
