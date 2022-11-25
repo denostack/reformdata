@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "dnt/": "https://deno.land/x/dnt@0.32.0/",
+    "testing/": "https://deno.land/std@0.166.0/testing/"
+  }
+}
