@@ -1,10 +1,18 @@
 import { parseName } from "./parse_name.ts";
 
+function isPlainObject(value: unknown): value is ReformData {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 export interface ReformData {
   [name: string]: ReformDataValue;
 }
 
-export type ReformDataValue = File | string | ReformData | ReformDataValue[];
+export type ReformDataValue =
+  | File
+  | string
+  | ReformData
+  | (ReformDataValue | null)[];
 
 export function reform<T extends ReformData = ReformData>(form: FormData): T {
   const reformed: ReformData = {};
@@ -14,22 +22,28 @@ export function reform<T extends ReformData = ReformData>(form: FormData): T {
     let data: any = reformed;
     for (const [keyIndex, key] of keys.entries()) {
       if (keyIndex + 1 === keys.length) {
-        if (typeof key === "string" || typeof key === "number") {
+        if (typeof key === "string") {
           data[key] = value;
-        } else if (Array.isArray(data)) {
-          data.push(value);
+        } else if (typeof key === "number") {
+          data[key] = value;
+          // fill sparse
+          for (let i = 0; i < key; i++) {
+            if (!(i in data)) {
+              data[i] = null;
+            }
+          }
         } else {
-          throw new Error("111");
+          data.push(value);
         }
         break;
       }
       const nextKey = keys[keyIndex + 1];
       if (typeof key === "string" || typeof key === "number") {
         if (typeof nextKey === "string") {
-          data[key] = data[key] ?? {};
+          data[key] = isPlainObject(data[key]) ? data[key] : {};
           data = data[key];
         } else {
-          data[key] = data[key] ?? [];
+          data[key] = Array.isArray(data[key]) ? data[key] : [];
           data = data[key];
         }
       } else if (Array.isArray(data)) {
@@ -42,8 +56,6 @@ export function reform<T extends ReformData = ReformData>(form: FormData): T {
           data.push(next);
           data = next;
         }
-      } else {
-        throw new Error("22");
       }
     }
   }

@@ -46,6 +46,17 @@ Deno.test("reform, n-depth array", () => {
   assertEquals(reform(form), { multiple: [["1"], ["2"], ["3"], ["4"]] });
 });
 
+Deno.test("reform, sparse array", () => {
+  const form = new FormData();
+
+  form.append("multiple[5]", "5");
+  form.append("multiple[3]", "3");
+
+  assertEquals(reform(form), {
+    multiple: [null, null, null, "3", null, "5"], // fill sparse as null
+  });
+});
+
 Deno.test("reform, n-depth, indexed array", () => {
   const form = new FormData();
 
@@ -68,4 +79,75 @@ Deno.test("reform, object array", () => {
   assertEquals(reform(form), {
     users: [{ id: "10", name: "wan2land" }, { id: "11", name: "wan3land" }],
   });
+});
+
+Deno.test("reform, n-depth object", () => {
+  const form = new FormData();
+
+  form.append("user[id]", "11");
+  form.append("user.name", "wan2land");
+  form.append("user[pet].name", "bori");
+  form.append("user[pet][age]", "5");
+
+  assertEquals(reform(form), {
+    user: {
+      id: "11",
+      name: "wan2land",
+      pet: { name: "bori", age: "5" },
+    },
+  });
+});
+
+Deno.test("reform, wrong array, overwrite", () => {
+  {
+    const form = new FormData();
+
+    form.append("user.name.something", "foo");
+    form.append("user[]", "wan2land");
+    form.append("user.name", "wan2land"); // overwrite!
+
+    assertEquals(reform(form), {
+      user: {
+        name: "wan2land",
+      },
+    });
+  }
+  {
+    const form = new FormData();
+
+    form.append("user[]", "wan3land");
+    form.append("user.name", "wan2land");
+    form.append("user[]", "wan2land"); // overwrite!
+
+    assertEquals(reform(form), {
+      user: ["wan2land"],
+    });
+  }
+});
+
+Deno.test("reform, wrong object, overwrite", () => {
+  {
+    const form = new FormData();
+
+    form.append("user.name", "wan2land");
+    form.append("user", "wan2land");
+    form.append("user.name", "wan2land"); // overwrite!
+
+    assertEquals(reform(form), {
+      user: {
+        name: "wan2land",
+      },
+    });
+  }
+  {
+    const form = new FormData();
+
+    form.append("user", "wan2land");
+    form.append("user.name", "wan2land");
+    form.append("user", "wan2land"); // overwrite!
+
+    assertEquals(reform(form), {
+      user: "wan2land",
+    });
+  }
 });
