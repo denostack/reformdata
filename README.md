@@ -12,7 +12,7 @@
   <img alt="Language Typescript" src="https://img.shields.io/badge/language-Typescript-007acc.svg?style=flat-square" />
 </p>
 
-Reform FormData.
+Reform FormData to Object or Array format.
 
 ## Usage
 
