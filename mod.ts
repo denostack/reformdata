@@ -4,4 +4,9 @@
  * @module
  */
 
-export { type NestedArray, reform, type ReformData } from "./reform.ts";
+export {
+  reform,
+  reform as default,
+  type ReformData,
+  type ReformDataValue,
+} from "./reform.ts";

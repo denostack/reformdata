@@ -1,15 +1,10 @@
 import { parseName } from "./parse_name.ts";
 
 export interface ReformData {
-  [name: string]:
-    | File
-    | string
-    | ReformData
-    | NestedArray<File | string | ReformData>;
+  [name: string]: ReformDataValue;
 }
 
-export interface NestedArray<T> extends Array<T | NestedArray<T>> {
-}
+export type ReformDataValue = File | string | ReformData | ReformDataValue[];
 
 export function reform<T extends ReformData = ReformData>(form: FormData): T {
   const reformed: ReformData = {};
@@ -43,7 +38,7 @@ export function reform<T extends ReformData = ReformData>(form: FormData): T {
           data.push(next);
           data = next;
         } else {
-          const next = [] as NestedArray<File | string | ReformData>;
+          const next = [] as ReformDataValue[];
           data.push(next);
           data = next;
         }
