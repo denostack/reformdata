@@ -114,3 +114,20 @@ reform(form);
 }
 */
 ```
+
+## Example with Deno
+
+```ts
+import { serve } from "https://deno.land/std@0.161.0/http/server.ts";
+import reform from "https://deno.land/x/reformdata/mod.ts";
+
+serve(async (request) => {
+  if (request.method === "POST") {
+    const formData = reform(await request.formData());
+
+    // do something
+  }
+
+  return new Response(":D");
+});
+```
