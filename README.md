@@ -3,13 +3,14 @@
 <a href="https://github.com/denostack"><img src="https://raw.githubusercontent.com/denostack/images/main/logo.svg" width="240" /></a>
 
 <p>
-  <a href="https://github.com/denostack/reformdata/actions"><img alt="Build" src="https://img.shields.io/github/workflow/status/denostack/reformdata/CI?logo=github&style=flat-square" /></a>
+  <a href="https://github.com/denostack/reformdata/actions"><img alt="Build" src="https://img.shields.io/github/actions/workflow/status/denostack/reformdata/ci.yml?branch=main&logo=github&style=flat-square" /></a>
   <a href="https://codecov.io/gh/denostack/reformdata"><img alt="Coverage" src="https://img.shields.io/codecov/c/gh/denostack/reformdata?style=flat-square" /></a>
-  <a href="https://npmcharts.com/compare/reformdata?minimal=true"><img alt="Downloads" src="https://img.shields.io/npm/dt/reformdata.svg?style=flat-square" /></a>
-  <a href="https://www.npmjs.com/package/reformdata"><img alt="Version" src="https://img.shields.io/npm/v/reformdata.svg?style=flat-square" /></a>
-  <a href="https://deno.land/x/reformdata"><img alt="deno.land/x/reformdata" src="https://img.shields.io/github/v/release/denostack/reformdata?display_name=tag&label=deno.land/x/reformdata@&style=flat-square&logo=deno&labelColor=000&color=777" /></a>
-  <a href="https://www.npmjs.com/package/reformdata"><img alt="License" src="https://img.shields.io/npm/l/reformdata.svg?style=flat-square" /></a>
+  <img alt="License" src="https://img.shields.io/npm/l/reformdata.svg?style=flat-square" />
   <img alt="Language Typescript" src="https://img.shields.io/badge/language-Typescript-007acc.svg?style=flat-square" />
+  <br />
+  <a href="https://deno.land/x/reformdata"><img alt="deno.land/x/reformdata" src="https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/denostack/reformdata/tags&query=$[0].name&display_name=tag&label=deno.land/x/reformdata@&style=flat-square&logo=deno&labelColor=000&color=777" /></a>
+  <a href="https://www.npmjs.com/package/reformdata"><img alt="Version" src="https://img.shields.io/npm/v/reformdata.svg?style=flat-square&logo=npm" /></a>
+  <a href="https://npmcharts.com/compare/reformdata?minimal=true"><img alt="Downloads" src="https://img.shields.io/npm/dt/reformdata.svg?style=flat-square" /></a>
 </p>
 
 Reform FormData to Object or Array format.
